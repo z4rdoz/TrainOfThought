@@ -1,0 +1,301 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Tilesets/PrototypeTiles.tres" type="TileSet" id=1]
+[ext_resource path="res://Scenes/NPC.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/AreaCamera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/CrumblingCube.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=5]
+
+[node name="World" type="Node" index="0"]
+
+[node name="TileMap" type="TileMap" parent="." index="0"]
+mode = 0
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 1
+collision_mask = 4
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 65536, 0, 0, 65550, 0, 0, 131072, 0, 0, 131086, 0, 0, 196608, 0, 0, 196622, 0, 0, 262144, 0, 0, 262158, 0, 0, 327680, 0, 0, 327694, 0, 0, 393216, 0, 0, 393230, 0, 0, 458752, 0, 0, 458766, 0, 0, 524288, 0, 0, 524302, 0, 0, 589824, 0, 0, 589838, 0, 0, 655360, 0, 0, 655374, 0, 0, 720896, 0, 0, 720910, 0, 0, 786432, 0, 0, 786446, 0, 0, 851968, 0, 0, 851982, 0, 0, 917504, 0, 0, 917518, 0, 0, 983040, 0, 0, 983054, 0, 0, 1048576, 0, 0, 1048590, 0, 0, 1114112, 0, 0, 1114126, 0, 0, 1179648, 0, 0, 1179662, 0, 0, 1245184, 0, 0, 1245198, 0, 0, 1310720, 0, 0, 1310734, 0, 0, 1376256, 0, 0, 1376270, 0, 0, 1376271, 0, 0, 1376272, 0, 0, 1376273, 0, 0, 1376274, 0, 0, 1376275, 0, 0, 1376276, 0, 0, 1376277, 0, 0, 1376278, 0, 0, 1441792, 0, 0, 1441806, 0, 0, 1441807, 0, 0, 1441814, 0, 0, 1507328, 0, 0, 1507342, 0, 0, 1507343, 0, 0, 1507350, 0, 0, 1572864, 0, 0, 1572886, 0, 0, 1638400, 0, 0, 1638422, 0, 0, 1703936, 0, 0, 1703937, 0, 0, 1703938, 0, 0, 1703939, 0, 0, 1703940, 0, 0, 1703941, 0, 0, 1703942, 0, 0, 1703943, 0, 0, 1703944, 0, 0, 1703945, 0, 0, 1703946, 0, 0, 1703947, 0, 0, 1703948, 0, 0, 1703949, 0, 0, 1703950, 0, 0, 1703951, 0, 0, 1703952, 0, 0, 1703953, 0, 0, 1703954, 0, 0, 1703955, 0, 0, 1703956, 0, 0, 1703957, 0, 0, 1703958, 0, 0 )
+_sections_unfolded = [ "Cell", "Collision" ]
+
+[node name="NPC" parent="." index="1" instance=ExtResource( 2 )]
+position = Vector2( 312, 400 )
+message = "There will be a lever here, that will start the train up again"
+
+[node name="Sprite" parent="NPC" index="0"]
+flip_h = true
+
+[node name="AreaCamera" parent="." index="2" instance=ExtResource( 3 )]
+
+[node name="Area2D" type="Area2D" parent="AreaCamera" index="1"]
+visible = false
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaCamera/Area2D" index="0"]
+build_mode = 0
+polygon = PoolVector2Array( 0, 0, 240, 0, 240, 432, 0, 432 )
+
+[node name="Area2D2" type="Area2D" parent="AreaCamera" index="2"]
+visible = false
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaCamera/Area2D2" index="0"]
+build_mode = 0
+polygon = PoolVector2Array( 240, 272, 480, 272, 480, 432, 240, 432 )
+
+[node name="Crumblies" type="Node2D" parent="." index="3"]
+editor/display_folded = true
+position = Vector2( 0, 24 )
+
+[node name="CrumblingCube" parent="Crumblies" index="0" instance=ExtResource( 4 )]
+position = Vector2( 16, 72 )
+
+[node name="CrumblingCube2" parent="Crumblies" index="1" instance=ExtResource( 4 )]
+position = Vector2( 32, 72 )
+
+[node name="CrumblingCube3" parent="Crumblies" index="2" instance=ExtResource( 4 )]
+position = Vector2( 48, 72 )
+
+[node name="CrumblingCube4" parent="Crumblies" index="3" instance=ExtResource( 4 )]
+position = Vector2( 64, 72 )
+
+[node name="CrumblingCube5" parent="Crumblies" index="4" instance=ExtResource( 4 )]
+position = Vector2( 80, 72 )
+
+[node name="CrumblingCube6" parent="Crumblies" index="5" instance=ExtResource( 4 )]
+position = Vector2( 96, 72 )
+
+[node name="CrumblingCube7" parent="Crumblies" index="6" instance=ExtResource( 4 )]
+position = Vector2( 112, 72 )
+
+[node name="CrumblingCube8" parent="Crumblies" index="7" instance=ExtResource( 4 )]
+position = Vector2( 208, 72 )
+
+[node name="CrumblingCube9" parent="Crumblies" index="8" instance=ExtResource( 4 )]
+position = Vector2( 192, 72 )
+
+[node name="CrumblingCube10" parent="Crumblies" index="9" instance=ExtResource( 4 )]
+position = Vector2( 176, 72 )
+
+[node name="CrumblingCube11" parent="Crumblies" index="10" instance=ExtResource( 4 )]
+position = Vector2( 160, 72 )
+
+[node name="CrumblingCube12" parent="Crumblies" index="11" instance=ExtResource( 4 )]
+position = Vector2( 144, 72 )
+
+[node name="CrumblingCube13" parent="Crumblies" index="12" instance=ExtResource( 4 )]
+position = Vector2( 128, 72 )
+
+[node name="Crumblies2" type="Node2D" parent="." index="4"]
+editor/display_folded = true
+position = Vector2( 0, 32 )
+
+[node name="CrumblingCube" parent="Crumblies2" index="0" instance=ExtResource( 4 )]
+position = Vector2( 16, 144 )
+
+[node name="CrumblingCube2" parent="Crumblies2" index="1" instance=ExtResource( 4 )]
+position = Vector2( 32, 144 )
+
+[node name="CrumblingCube3" parent="Crumblies2" index="2" instance=ExtResource( 4 )]
+position = Vector2( 48, 144 )
+
+[node name="CrumblingCube4" parent="Crumblies2" index="3" instance=ExtResource( 4 )]
+position = Vector2( 64, 144 )
+
+[node name="CrumblingCube5" parent="Crumblies2" index="4" instance=ExtResource( 4 )]
+position = Vector2( 80, 144 )
+
+[node name="CrumblingCube6" parent="Crumblies2" index="5" instance=ExtResource( 4 )]
+position = Vector2( 96, 144 )
+
+[node name="CrumblingCube7" parent="Crumblies2" index="6" instance=ExtResource( 4 )]
+position = Vector2( 112, 144 )
+
+[node name="CrumblingCube8" parent="Crumblies2" index="7" instance=ExtResource( 4 )]
+position = Vector2( 208, 144 )
+
+[node name="CrumblingCube9" parent="Crumblies2" index="8" instance=ExtResource( 4 )]
+position = Vector2( 192, 144 )
+
+[node name="CrumblingCube10" parent="Crumblies2" index="9" instance=ExtResource( 4 )]
+position = Vector2( 176, 144 )
+
+[node name="CrumblingCube11" parent="Crumblies2" index="10" instance=ExtResource( 4 )]
+position = Vector2( 160, 144 )
+
+[node name="CrumblingCube12" parent="Crumblies2" index="11" instance=ExtResource( 4 )]
+position = Vector2( 144, 144 )
+
+[node name="CrumblingCube13" parent="Crumblies2" index="12" instance=ExtResource( 4 )]
+position = Vector2( 128, 144 )
+
+[node name="Crumblies3" type="Node2D" parent="." index="5"]
+editor/display_folded = true
+position = Vector2( 0, 32 )
+
+[node name="CrumblingCube" parent="Crumblies3" index="0" instance=ExtResource( 4 )]
+position = Vector2( 16, 224 )
+
+[node name="CrumblingCube2" parent="Crumblies3" index="1" instance=ExtResource( 4 )]
+position = Vector2( 32, 224 )
+
+[node name="CrumblingCube3" parent="Crumblies3" index="2" instance=ExtResource( 4 )]
+position = Vector2( 48, 224 )
+
+[node name="CrumblingCube4" parent="Crumblies3" index="3" instance=ExtResource( 4 )]
+position = Vector2( 64, 224 )
+
+[node name="CrumblingCube5" parent="Crumblies3" index="4" instance=ExtResource( 4 )]
+position = Vector2( 80, 224 )
+
+[node name="CrumblingCube6" parent="Crumblies3" index="5" instance=ExtResource( 4 )]
+position = Vector2( 96, 224 )
+
+[node name="CrumblingCube7" parent="Crumblies3" index="6" instance=ExtResource( 4 )]
+position = Vector2( 112, 224 )
+
+[node name="CrumblingCube8" parent="Crumblies3" index="7" instance=ExtResource( 4 )]
+position = Vector2( 208, 224 )
+
+[node name="CrumblingCube9" parent="Crumblies3" index="8" instance=ExtResource( 4 )]
+position = Vector2( 192, 224 )
+
+[node name="CrumblingCube10" parent="Crumblies3" index="9" instance=ExtResource( 4 )]
+position = Vector2( 176, 224 )
+
+[node name="CrumblingCube11" parent="Crumblies3" index="10" instance=ExtResource( 4 )]
+position = Vector2( 160, 224 )
+
+[node name="CrumblingCube12" parent="Crumblies3" index="11" instance=ExtResource( 4 )]
+position = Vector2( 144, 224 )
+
+[node name="CrumblingCube13" parent="Crumblies3" index="12" instance=ExtResource( 4 )]
+position = Vector2( 128, 224 )
+
+[node name="Crumblies4" type="Node2D" parent="." index="6"]
+editor/display_folded = true
+position = Vector2( 0, 32 )
+
+[node name="CrumblingCube" parent="Crumblies4" index="0" instance=ExtResource( 4 )]
+position = Vector2( 16, 304 )
+
+[node name="CrumblingCube2" parent="Crumblies4" index="1" instance=ExtResource( 4 )]
+position = Vector2( 32, 304 )
+
+[node name="CrumblingCube3" parent="Crumblies4" index="2" instance=ExtResource( 4 )]
+position = Vector2( 48, 304 )
+
+[node name="CrumblingCube4" parent="Crumblies4" index="3" instance=ExtResource( 4 )]
+position = Vector2( 64, 304 )
+
+[node name="CrumblingCube5" parent="Crumblies4" index="4" instance=ExtResource( 4 )]
+position = Vector2( 80, 304 )
+
+[node name="CrumblingCube6" parent="Crumblies4" index="5" instance=ExtResource( 4 )]
+position = Vector2( 96, 304 )
+
+[node name="CrumblingCube7" parent="Crumblies4" index="6" instance=ExtResource( 4 )]
+position = Vector2( 112, 304 )
+
+[node name="CrumblingCube8" parent="Crumblies4" index="7" instance=ExtResource( 4 )]
+position = Vector2( 208, 304 )
+
+[node name="CrumblingCube9" parent="Crumblies4" index="8" instance=ExtResource( 4 )]
+position = Vector2( 192, 304 )
+
+[node name="CrumblingCube10" parent="Crumblies4" index="9" instance=ExtResource( 4 )]
+position = Vector2( 176, 304 )
+
+[node name="CrumblingCube11" parent="Crumblies4" index="10" instance=ExtResource( 4 )]
+position = Vector2( 160, 304 )
+
+[node name="CrumblingCube12" parent="Crumblies4" index="11" instance=ExtResource( 4 )]
+position = Vector2( 144, 304 )
+
+[node name="CrumblingCube13" parent="Crumblies4" index="12" instance=ExtResource( 4 )]
+position = Vector2( 128, 304 )
+
+[node name="Polygon2D" type="Polygon2D" parent="." index="7"]
+visible = false
+position = Vector2( 352, 264 )
+polygon = PoolVector2Array( -112, 8, 128, 8, 128, 168, -112, 168 )
+uv = PoolVector2Array(  )
+splits = PoolIntArray(  )
+color = Color( 1, 1, 1, 0.0627451 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = false
+texture = null
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+skeleton = NodePath("")
+invert_enable = false
+invert_border = 100.0
+bones = [  ]
+
+[node name="Player" parent="." index="8" instance=ExtResource( 5 )]
+position = Vector2( 104, -40 )
+
+[node name="Polygon2DInside" type="Polygon2D" parent="." index="9"]
+z_index = -1
+polygon = PoolVector2Array( 0, 0, 240, 0, 240, 336, 368, 336, 368, 432, 0, 432 )
+uv = PoolVector2Array(  )
+splits = PoolIntArray(  )
+color = Color( 0.356863, 0.352941, 0.333333, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = false
+texture = null
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+skeleton = NodePath("")
+invert_enable = false
+invert_border = 100.0
+bones = [  ]
+_sections_unfolded = [ "Z Index" ]
+
+[node name="Polygon2DBackground" type="Polygon2D" parent="." index="10"]
+z_index = -6
+polygon = PoolVector2Array( 240, 224, 480, 224, 480, 432, 240, 432 )
+uv = PoolVector2Array(  )
+splits = PoolIntArray(  )
+color = Color( 0, 0, 0, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = false
+texture = null
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+skeleton = NodePath("")
+invert_enable = false
+invert_border = 100.0
+bones = [  ]
+_sections_unfolded = [ "Z Index" ]
+
+
+[editable path="NPC"]

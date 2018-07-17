@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/MovingPlatform.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/PrototypingSet3.png" type="Texture" id=2]
+
+[sub_resource type="Curve2D" id=1]
+
+resource_local_to_scene = true
+bake_interval = 5.0
+_data = {
+"points": PoolVector2Array(  )
+}
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 16, 2 )
+
+[node name="MovingPlatform" type="Path2D"]
+self_modulate = Color( 0.5, 0.6, 1, 0.7 )
+curve = SubResource( 1 )
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform", "curve" ]
+__meta__ = {
+"_edit_group_": true
+}
+speed = 100.0
+width = 2
+moveInEditor = false
+
+[node name="PathFollow2D" type="PathFollow2D" parent="." index="0"]
+position = Vector2( 0, 6 )
+offset = 0.0
+h_offset = 0.0
+v_offset = 6.0
+rotate = false
+cubic_interp = true
+loop = false
+lookahead = 4.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="PathFollow2D" index="0"]
+position = Vector2( 0, 8 )
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/StaticBody2D" index="0"]
+position = Vector2( 0, -14 )
+shape = SubResource( 2 )
+one_way_collision = true
+_sections_unfolded = [ "Transform" ]
+
+[node name="Sprite-Left" type="Sprite" parent="." index="1"]
+visible = false
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 32, 0, 16, 16 )
+_sections_unfolded = [ "Region", "Transform" ]
+
+[node name="Sprite-Mid" type="Sprite" parent="." index="2"]
+visible = false
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 48, 0, 16, 16 )
+_sections_unfolded = [ "Region", "Transform" ]
+
+[node name="Sprite-Right" type="Sprite" parent="." index="3"]
+visible = false
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 64, 0, 16, 16 )
+_sections_unfolded = [ "Region", "Transform" ]
+
