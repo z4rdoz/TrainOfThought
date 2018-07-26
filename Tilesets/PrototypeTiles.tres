@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=18 format=2]
 
-[ext_resource path="res://Sprites/PrototypingSet3.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/PrototypingSet.png" type="Texture" id=1]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -354,4 +354,5 @@ points = PoolVector2Array( 16, -8, 16, 8, -16, 8 )
 18/navigation_offset = Vector2( 8, 8 )
 18/shapes = [  ]
 18/z_index = 0
+_sections_unfolded = [ "0" ]
 

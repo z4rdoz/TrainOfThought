@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PrototypingSet3.png-4f3fa6c793ad43d7912cae162c7ede74.stex"
+path="res://.import/PrototypingSet.png-12805af701194f11c25c699d258178a3.stex"
 
 [deps]
 
-source_file="res://Sprites/PrototypingSet3.png"
-dest_files=[ "res://.import/PrototypingSet3.png-4f3fa6c793ad43d7912cae162c7ede74.stex" ]
+source_file="res://Sprites/PrototypingSet.png"
+dest_files=[ "res://.import/PrototypingSet.png-12805af701194f11c25c699d258178a3.stex" ]
 
 [params]
 

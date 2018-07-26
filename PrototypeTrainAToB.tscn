@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Tilesets/PrototypeTiles.tres" type="TileSet" id=1]
+[ext_resource path="res://Scenes/NPC.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/NPC.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/AreaCamera.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/AreaCamera.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=7]
+
+[node name="World" type="Node" index="0"]
+
+[node name="TileMap" type="TileMap" parent="." index="0"]
+mode = 0
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 1
+collision_mask = 4
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 65536, 0, 0, 65550, 0, 0, 131072, 0, 0, 131086, 0, 0, 196608, 0, 0, 196622, 0, 0, 262144, 0, 0, 262158, 0, 0, 327680, 0, 0, 327694, 0, 0, 393216, 0, 0, 393230, 0, 0, 458752, 0, 0, 458766, 0, 0, 524288, 0, 0, 524302, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0 )
+_sections_unfolded = [ "Cell", "Collision" ]
+
+[node name="NPC" type="Area2D" parent="." index="1" instance=ExtResource( 2 )]
+position = Vector2( 312, 400 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 16
+collision_mask = 4
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 3 )
+_sections_unfolded = [ "Collision", "Z Index" ]
+message = "There will be a lever here, that will start the train up again"
+
+[node name="AreaCamera" type="Node" parent="." index="2" instance=ExtResource( 4 )]
+pause_mode = 2
+script = ExtResource( 5 )
+_sections_unfolded = [ "Pause", "Transform" ]
+
+[node name="Area2D" type="Area2D" parent="AreaCamera" index="1"]
+visible = false
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaCamera/Area2D" index="0"]
+build_mode = 0
+polygon = PoolVector2Array( 0, 0, 240, 0, 240, 160, 0, 160 )
+
+[node name="Area2D2" type="Area2D" parent="AreaCamera" index="2"]
+visible = false
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaCamera/Area2D2" index="0"]
+build_mode = 0
+polygon = PoolVector2Array( 240, 272, 480, 272, 480, 432, 240, 432 )
+
+[node name="Player" type="KinematicBody2D" parent="." index="3" instance=ExtResource( 6 )]
+position = Vector2( 24, 112 )
+z_index = 5
+input_pickable = false
+collision_layer = 4
+collision_mask = 3
+collision/safe_margin = 0.08
+motion/sync_to_physics = false
+script = ExtResource( 7 )
+_sections_unfolded = [ "Collision", "Transform", "Z Index" ]
+
+[connection signal="body_entered" from="NPC" to="NPC" method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="NPC" to="NPC" method="_on_NPC_body_exited"]

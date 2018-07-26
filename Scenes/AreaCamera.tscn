@@ -8,7 +8,7 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Pause", "Transform" ]
 
 [node name="Camera2D" type="Camera2D" parent="." index="0"]
-position = Vector2( 8, 88 )
+position = Vector2( 120, 80 )
 anchor_mode = 1
 rotating = false
 current = true

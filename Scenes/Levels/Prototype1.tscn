@@ -1,0 +1,132 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Tilesets/PrototypeTiles.tres" type="TileSet" id=1]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/AreaCamera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/TrainFollow.gd" type="Script" id=4]
+[ext_resource path="res://Sprites/PrototypingSet.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/NPC.tscn" type="PackedScene" id=6]
+
+[sub_resource type="Curve2D" id=1]
+
+bake_interval = 5.0
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 16, 24, -89.5002, 3.00001, 89.5002, -3.00001, 160, -32, 0, 0, 0, 0, 360, 24 )
+}
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="Curve2D" id=2]
+
+bake_interval = 5.0
+_data = {
+"points": PoolVector2Array( -89.2935, -8.00977, 89.2935, 8.00977, 142.357, 112.199, -13.2893, 11.5746, 13.2893, -11.5746, 254.674, 107.484, -82.7368, -13.2893, 82.7368, 13.2893, 416, 48 )
+}
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 16.0786, 2.05528 )
+
+[node name="World" type="Node" index="0"]
+
+[node name="TileMap" type="TileMap" parent="." index="0"]
+mode = 0
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 1
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray( -327680, 0, 0, -327679, 0, 0, -327678, 0, 0, -327677, 0, 0, -327676, 0, 0, -327675, 0, 0, -327674, 0, 0, -327673, 0, 0, -327672, 0, 0, -327671, 0, 0, -327670, 0, 0, -327669, 0, 0, -327668, 0, 0, -327667, 0, 0, -327666, 0, 0, -327665, 0, 0, -327664, 0, 0, -327663, 0, 0, -327662, 0, 0, -327661, 0, 0, -327660, 0, 0, -327659, 0, 0, -327658, 0, 0, -327657, 0, 0, -327656, 0, 0, -327655, 0, 0, -327654, 0, 0, -262144, 0, 0, -262118, 0, 0, -196608, 0, 0, -196582, 0, 0, -196581, 0, 0, -196580, 0, 0, -196579, 0, 0, -196578, 0, 0, -196577, 0, 0, -196576, 0, 0, -131072, 0, 0, -131040, 0, 0, -65536, 0, 0, -65504, 0, 0, 0, 0, 0, 32, 0, 0, 65536, 0, 0, 65568, 0, 0, 131072, 0, 0, 131104, 0, 0, 196608, 0, 0, 196634, 0, 0, 196635, 0, 0, 196636, 0, 0, 196637, 0, 0, 196638, 0, 0, 196639, 0, 0, 196640, 0, 0, 262144, 0, 0, 262170, 0, 0, 327680, 0, 0, 327706, 0, 0, 393216, 0, 0, 393242, 0, 0, 458752, 0, 0, 458778, 0, 0, 524288, 0, 0, 524314, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0, 589840, 0, 0, 589841, 0, 0, 589842, 0, 0, 589843, 0, 0, 589844, 0, 0, 589845, 0, 0, 589846, 0, 0, 589847, 0, 0, 589848, 0, 0, 589849, 0, 0, 589850, 0, 0 )
+_sections_unfolded = [ "Cell", "Collision" ]
+
+[node name="Player" parent="." index="1" instance=ExtResource( 2 )]
+position = Vector2( 8, 112 )
+
+[node name="AreaCamera" parent="." index="2" instance=ExtResource( 3 )]
+
+[node name="Camera2D" parent="AreaCamera" index="0"]
+editor_draw_limits = true
+_sections_unfolded = [ "Editor", "Smoothing", "Transform", "Visibility" ]
+
+[node name="Area2D" type="Area2D" parent="AreaCamera" index="1"]
+visible = false
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaCamera/Area2D" index="0"]
+build_mode = 0
+polygon = PoolVector2Array( 0, -80, 432, -80, 432, 160, 0, 160 )
+
+[node name="Area2D2" type="Area2D" parent="AreaCamera" index="2"]
+visible = false
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaCamera/Area2D2" index="0"]
+build_mode = 0
+polygon = PoolVector2Array( 432, -80, 432, 160, 688, 160, 688, -80 )
+
+[node name="Node" type="Node2D" parent="." index="3"]
+script = ExtResource( 4 )
+_sections_unfolded = [ "Transform", "script" ]
+
+[node name="Path2D" type="Path2D" parent="Node" index="0"]
+self_modulate = Color( 0.5, 0.6, 1, 0.7 )
+position = Vector2( 0, 80 )
+curve = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Path2D2" type="Path2D" parent="Node" index="1"]
+self_modulate = Color( 0.5, 0.6, 1, 0.7 )
+position = Vector2( 0, 16 )
+curve = SubResource( 2 )
+
+[node name="Train" type="KinematicBody2D" parent="Node" index="2"]
+position = Vector2( -119.765, 46.0904 )
+input_pickable = false
+collision_layer = 1024
+collision_mask = 2
+collision/safe_margin = 0.08
+motion/sync_to_physics = false
+_sections_unfolded = [ "Collision" ]
+
+[node name="Sprite" type="Sprite" parent="Node/Train" index="0"]
+texture = ExtResource( 5 )
+region_enabled = true
+region_rect = Rect2( 40, 0, 32, 4 )
+_sections_unfolded = [ "Offset", "Region" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/Train" index="1"]
+shape = SubResource( 3 )
+
+[node name="NPC" parent="." index="4" instance=ExtResource( 6 )]
+position = Vector2( 464, 31.9212 )
+message = "You did it!"
+
+[node name="Sprite" parent="NPC" index="0"]
+flip_h = true
+
+
+[editable path="AreaCamera"]
+
+[editable path="NPC"]
